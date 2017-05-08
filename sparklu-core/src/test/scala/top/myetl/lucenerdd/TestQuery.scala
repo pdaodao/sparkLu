@@ -23,7 +23,7 @@ object TestQuery {
 
     // lucene 到 java bean 的转换
     val convert = new DocToBean[String] {
-      override def toBean(score: ScoreDoc, doc: Document): String = score.doc.toString+" -> "+doc.get("_all")
+      override def toBean(score: ScoreDoc, doc: Document): String = score.doc.toString+" -> "+doc.get("name")
     }
     //创建 luceneRDD
     val rdd: LuceneRDD[String] = sc.luceneRDD("test")(convert)
