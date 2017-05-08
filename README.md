@@ -19,7 +19,7 @@ object TestWrite {
   def main(args: Array[String]): Unit = {
 
     val conf = new SparkConf().setAppName("Write to Lucene")
-    // 设置hdfs中存储索引的地址 需要在该目录下需要读写权限
+    // 设置hdfs中存储索引的地址 需要在该目录下具有读写权限
     conf.set(Constants.HdfsBaseDirKey, "hdfs://ubuntu:9000/sparklu/")
     // spark上下文
     val sc = new SparkContext(conf)
