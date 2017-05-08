@@ -1,5 +1,6 @@
 # sparkLu
 使用lucene为spark rdd提供索引功能，索引数据存储到HDFS上，目标: 带有join功能的分布式搜索引擎
+项目状态：开发中，不可用
 
 
 ## 创建索引
@@ -90,3 +91,7 @@ object TestQuery {
 
 }
 ```
+
+## todo
+- 索引文件缓存
+- DataFrame 支持
