@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>top.myetl</groupId>
+    <artifactId>sparkLu</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>sparklu-core</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <scala.binary.version>2.11</scala.binary.version>
+        <scala.version>2.11.7</scala.version>
+        <spark.version>1.6.0</spark.version>
+        <java.version>1.7</java.version>
+        <lucene.version>6.3.0</lucene.version>
+        <typesafe.version>1.2.1</typesafe.version>
+        <joda-time.version>2.9.4</joda-time.version>
+        <hadoop.version>2.7.1</hadoop.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.twitter</groupId>
+            <artifactId>algebird-core_2.11</artifactId>
+            <version>0.12.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.typesafe</groupId>
+            <artifactId>config</artifactId>
+            <version>${typesafe.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-queryparser</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-expressions</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-facet</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.holdenkarau</groupId>
+            <artifactId>spark-testing-base_2.11</artifactId>
+            <version>1.6.0_0.5.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <artifactId>scala-library</artifactId>
+            <groupId>org.scala-lang</groupId>
+            <version>${scala.version}</version>
+            <!--<scope>provided</scope>-->
+        </dependency>
+
+        <dependency> <!-- Spark dependency -->
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_2.11</artifactId>
+            <version>${spark.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--  spark sql -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_2.11</artifactId>
+            <version>${spark.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+        <!--<dependency>-->
+        <!--<groupId>org.slf4j</groupId>-->
+        <!--<artifactId>slf4j-log4j12</artifactId>-->
+        <!--<version>1.7.2</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.log4s</groupId>-->
+        <!--<artifactId>log4s_${scala.binary.version}</artifactId>-->
+        <!--<version>1.2.1</version>-->
+        <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_${scala.binary.version}</artifactId>
+            <version>2.2.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+
+
+
+    <build>
+        <sourceDirectory>src/main/scala/</sourceDirectory>
+        <testSourceDirectory>src/test/scala/</testSourceDirectory>
+
+        <plugins>
+
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>3.2.2</version>
+                <executions>
+                    <execution>
+                        <id>scala-compile-first</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>scala-test-compile</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <scalaVersion>${scala.version}</scalaVersion>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!--automatically remove all classes of dependencies that are not used by the project-->
+                            <!--<minimizeJar>true</minimizeJar>-->
+
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.apache.spark:*:jar</exclude>
+                                    <!--<exclude>org.apache.hadoop:*:jar</exclude>-->
+                                    <exclude>junit:junit</exclude>
+                                </excludes>
+                            </artifactSet>
+
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <transformers>
+
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>reference.conf</resource>
+                                </transformer>
+
+                                <!--<transformer-->
+                                <!--implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
+                                <!--<manifestEntries>-->
+                                <!--<Main-Class>com.daman.elasticsearch.App</Main-Class>-->
+                                <!--</manifestEntries>-->
+                                <!--</transformer>-->
+
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
