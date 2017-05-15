@@ -67,7 +67,7 @@ class LuceneRDD[T:ClassTag](
   @DeveloperApi
   override def compute(split: Partition, context: TaskContext): Iterator[T] = {
 
-    val p = split.asInstanceOf[LuceneRDDPartition[_]]
+    val p = split.asInstanceOf[IndexRDDPartition[_]]
     val start = System.nanoTime()
     val searcher = p.getSearcher()
     val q: MyQuery  = if(null == query) matchAll else query
@@ -98,7 +98,7 @@ class LuceneRDD[T:ClassTag](
     val fs: FileSystem = FileSystem.get(configuration)
     val paths = FsUtils.listLuceneDir(fs, new Path(tableDir))
     paths.indices.map(i =>
-      new LuceneRDDPartition[T](i, FsUtils.dirName(tableDir, paths(i)))
+      new IndexRDDPartition[T](i, FsUtils.dirName(tableDir, paths(i)))
     ).toArray
   }
 

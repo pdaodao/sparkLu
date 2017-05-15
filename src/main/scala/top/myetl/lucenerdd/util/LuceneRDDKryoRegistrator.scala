@@ -3,19 +3,14 @@ package top.myetl.lucenerdd.util
 import com.twitter.chill.Kryo
 import org.apache.spark.SparkConf
 import org.apache.spark.serializer.{KryoRegistrator, KryoSerializer}
-import top.myetl.lucenerdd.convert.{BeanToDoc, DocToBean}
 import top.myetl.lucenerdd.rdd.{LuceneRDD, IndexRDDPartition}
 
-
 /**
-  * Created by pengda on 17/1/10.
+  * Created by pengda on 17/5/12.
   */
 class LuceneRDDKryoRegistrator extends KryoRegistrator{
   def registerClasses(kryo: Kryo): Unit = {
-    kryo.register(classOf[LuceneRDD[_]])
-    kryo.register(classOf[IndexRDDPartition[_]])
-    kryo.register(classOf[DocToBean[_]])
-    kryo.register(classOf[BeanToDoc[_]])
+    kryo.register(classOf[IndexRDDPartition])
   }
 }
 
